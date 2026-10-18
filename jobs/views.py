@@ -7,9 +7,11 @@ from .models import Job
 
 def job_list(request):
     query = request.GET.get('q', '')
+    job_type = request.GET.get('job_type', '')
 
     jobs = Job.objects.all().order_by('-created_at')
 
+    # Search by title, company, or location
     if query:
         jobs = jobs.filter(
             Q(title__icontains=query)
@@ -17,10 +19,18 @@ def job_list(request):
             | Q(location__icontains=query)
         )
 
+    # Filter by job type
+    if job_type:
+        jobs = jobs.filter(job_type=job_type)
+
     return render(
         request,
         'jobs/job_list.html',
-        {'jobs': jobs, 'query': query}
+        {
+            'jobs': jobs,
+            'query': query,
+            'selected_job_type': job_type,
+        }
     )
 
 
