@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Nepal Jobs</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+    .job { border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; }
+    .job h3 { margin: 0 0 6px; }
+    a { color: #0b5ed7; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>Nepal Jobs</h1>
+  {% for job in jobs %}
+    <div class="job">
+      <h3><a href="{% url 'job_detail' job.pk %}">{{ job.title }}</a></h3>
+      <p>{{ job.company }} · {{ job.location }}{% if job.salary %} · NPR {{ job.salary }}{% endif %}</p>
+    </div>
+  {% empty %}
+    <p>No jobs yet. Add some in <a href="/admin/">the admin panel</a>.</p>
+  {% endfor %}
+</body>
+</html>

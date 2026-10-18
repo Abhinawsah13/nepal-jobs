@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ job.title }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+    a { color: #0b5ed7; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <a href="{% url 'job_list' %}">← Back to all jobs</a>
+  <h1>{{ job.title }}</h1>
+  <h3>{{ job.company }} · {{ job.location }}</h3>
+  {% if job.salary %}<p><strong>Salary:</strong> NPR {{ job.salary }}</p>{% endif %}
+  <p>{{ job.description|linebreaks }}</p>
+  <small>Posted {{ job.created_at|date:"d M Y" }}</small>
+</body>
+</html>
